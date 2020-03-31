@@ -19,9 +19,9 @@ var dFirst;
 
 var colors = {
     "A": "#fb9fcb",
-    "B": "#ff951c",
-    "C": "#fff200",
-    "D": "#00a500",
+    "B": "#B6D2EB",
+    "C": "#ffe769",
+    "D": "#9dedc2",
     "F": "gray",
     "?": "#000000",
     "-": "#000000"
@@ -247,7 +247,7 @@ function plotData(data) {
     var pathGenerator = d3.line()
     .x(function (d) { return scaleX(d.x); })
     .y(function (d) { return scaleY(d.rank); });
-
+    
     paths.enter().append("path")
         .attr("class", "ranking")
         .attr("id", function(d) {
@@ -263,7 +263,11 @@ function plotData(data) {
             return pathGenerator(d.ranking);
         })
         .style("stroke", function(d, i) {
-            return getBackground(d);
+            let color = getBackground2(d)
+            if (!color) {
+                color = getBackground(d)
+            }
+            return color;
         })
         .style("stroke-width", NORMAL_WIDTH)
         .on("mouseover", function (d) {
@@ -340,10 +344,14 @@ function updateNotes(d) {
             $("#note" + i).hide();
         } else { // Show rank
             var rank = d.ranking[i].rank;
+            let color = getBackground2(d)
+            if (!color) {
+                color = getBackground(d)
+            }
             $("#note" + i)
                 .text(rank)
                 .css("top", scaleY(rank) + OFFSET)
-                .css("background", getBackground(d))
+                .css("background", color)
                 .css("color", getTextColor(d));
         }
     }
@@ -351,16 +359,16 @@ function updateNotes(d) {
 
 // Get color of note text (all white except for yellow rank C)
 function getTextColor(d) {
-    if (d.letter == "C") {
-        return "black";
-    }
+    // if (d.letter2 == "C") {
+    //     return "black";
+    // }
     return "white";
 }
 
 function getTextColor2(d) {
-    if (d.letter2 == "C") {
-        return "black";
-    }
+    // if (d.letter2 == "C") {
+    //     return "black";
+    // }
     return "white";
 }
 
