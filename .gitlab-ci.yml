@@ -1,0 +1,14 @@
+image: alpine:latest
+
+variables:
+  PUBLIC_URL: /ywy2-ranking
+
+pages:
+  stage: deploy
+  script:
+  - echo 'Han Dong the best!'
+  artifacts:
+    paths:
+    - public
+  only:
+  - master

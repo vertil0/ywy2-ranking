@@ -1,0 +1,265 @@
+/*General*/
+
+$bg: #f8f8f8;
+$green: #00a500;
+$red: #d60a2a;
+$blue: #0564e9;
+
+* {
+    font-family: "Open Sans";
+    margin: 0;
+    padding: 0;
+    background: none;
+    outline: none;
+}
+
+body {
+    background: $bg;
+    font-size: 14px;
+}
+
+.smallCaps {
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 12px;
+    color: #888;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+#graph{
+    display: inline-block;
+    width: 55%;
+    vertical-align: top;
+    height: 600px;
+}
+
+
+/* Top */
+
+#banner {
+    background: $blue url("../img/banner.png") center center;
+    height: 200px;
+    box-sizing: border-box;
+    position: relative;
+    top: -25px;
+    text-align: center;
+    padding-top: 60px;
+    margin-bottom: 30px;
+
+    img {
+        max-height: 120px;
+    }
+}
+
+#mainWrapper {
+    padding: 0 40px;
+    margin: auto;
+    position: relative;
+}
+
+/* Misc */
+
+img.arrow {
+    height: 10px;
+    margin-left: 5px;
+}
+
+.letter {
+    border-radius: 100%;
+    box-sizing: border-box;
+    width: 28px;
+    height: 28px;
+    padding-top: 4px;
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    margin-left: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.change {
+    padding-left: 3px;
+    font-weight: bold;
+
+    &.up {
+        color: $green;
+    }
+    &.down {
+        color: $red;
+    }
+}
+
+/* Graph */
+
+
+
+.axis path {
+    fill: none;
+    stroke: black;
+}
+.axis line {
+    stroke: black;
+}
+
+path.ranking {
+    fill: none;
+    cursor: pointer;
+}
+
+.note {
+    background: black;
+    color: white;
+    display: inline-block;
+    position: absolute;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 8px 0;
+    box-sizing: border-box;
+    width: 36px;
+    height: 36px;
+    border-radius: 100%;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.episodeLabel {
+    fill: #888;
+    text-anchor: middle;
+}
+
+/* Info */
+
+#profile {
+    margin-top: -20px;
+    margin-left: 40px;
+    height: 160px;
+
+    #picWrapper {
+        float:left;
+        width: 180px;
+        img {
+            width: 100%;
+        }
+    }
+
+    #textWrapper {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 40px;
+        padding-top: 40px;
+
+        #infoName {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        #infoLetter {
+            top: -3px;
+        }
+
+        #infoCompany {
+            margin: 5px 0 8px;
+        }
+        #infoRank {
+
+            // font-size: 14px;
+        }
+    }
+}
+
+.pie {
+    .arc text {
+        text-anchor: middle;
+        fill: #fff;
+    }
+
+    .arc path {
+        stroke: $bg;
+        stroke-width: 3px;
+    }
+}
+
+/* Ranking table */
+
+#chart {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    width: 500px;
+
+    tbody{
+        display: block;
+        overflow-y: scroll;
+        max-height: 540px;
+        width: 500px;
+    }
+}
+
+#top {
+    border-spacing: 0;
+    border-collapse: collapse;
+    table-layout: fixed;
+    width: 100%;
+    font-size: 13px;
+
+    .selectedSort {
+        color: #000;
+    }
+
+    #topBody tr {
+        cursor: pointer;
+        &:hover {
+            background: #e6e6e6!important;
+        }
+        &.wanna-members {
+            background: #eee;
+        }
+    }
+
+    td {
+        padding: 5px 15px;
+        border-bottom: 1px solid #ccc;
+    }
+
+    th {
+        cursor: pointer;
+        text-align: left;
+        border-bottom: 2px solid #ccc;
+        padding: 10px 15px!important;
+
+        &:hover {
+            color: black;
+        }
+    }
+
+    #latestRank, #letter, #rankChange, .smWidth{
+        width: 20px;
+    }
+    #rankChange, .rankWidth {
+        width: 40px;
+    }
+    #name, .nameWidth{
+        width: 120px;
+    }
+    #company, .companyWidth{
+        width: 150px;
+    }
+
+}
+
+// Footer
+#footer {
+    padding: 20px 50px;
+    margin-top: 60px;
+    font-size: 10px;
+    background: #eee;
+    color: #888;
+    a{
+        color: #888;
+    }
+}
