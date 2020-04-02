@@ -13,7 +13,7 @@ var padding = 40;
 var middlePadding = (padding * 2) + 100;
 var width = $(window).width() - middlePadding - CHART_WIDTH - 30;
 
-var episodes = [2,4,6];
+var episodes = [2,4,6,7];
 var totalData;
 var dFirst;
 
@@ -209,6 +209,7 @@ function selectLine(d, lineId) {
     plot.selectAll("path.ranking").style("opacity", NORMAL_OPACITY);
 
     // Move line to front and select
+    console.log(lineId)
     var line = d3.select(lineId);
     line.moveToFront();
     line.style("opacity", SELECT_OPACITY).style("stroke-width", SELECT_WIDTH);
