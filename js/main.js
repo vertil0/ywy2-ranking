@@ -11,7 +11,7 @@ var CUTOFF = 9; // Update cutoff
 var height = 390;
 var padding = 40;
 var middlePadding = (padding * 2) + 100;
-var width = $(window).width() - middlePadding - CHART_WIDTH - 30;
+var width = $(window).width() - middlePadding - CHART_WIDTH - 100;
 
 var episodes = [2,4,6,7];
 var totalData;
@@ -146,11 +146,12 @@ function showChart(key, asc) {
         .html(function(d) {
             var letter = '<div class="letter" style="background: ' + getBackground(d) + '; color: ' + getTextColor(d) + '">' + d.letter + '</div>';
             var letter2 = '<div class="letter2" style="background: ' + getBackground2(d) + '; color: ' + getTextColor2(d) + '">' + d.letter2 + '</div>';
+            var letter3 = '<div class="letter3" style="background: ' + getBackground3(d) + '; color: ' + getTextColor3(d) + '">' + d.letter3 + '</div>';
             var rank = d.latestRank;
             if (rank == 1000) {
                 rank = "-";
             }
-            return td(rank, "smWidth") + td(d.name, "nameWidth") + td(d.company, "companyWidth") + td(letter, "smWidth") + td(letter2, "smWidth") + td(displayRankChange(d), "rankWidth");
+            return td(rank, "smWidth") + td(d.name, "nameWidth") + td(d.company, "companyWidth") + td(letter, "smWidth") + td(letter2, "smWidth") + td(letter3, "smWidth") + td(displayRankChange(d), "rankWidth");
         })
         .on("mouseover", function(d) {
             selectLine(d, "#line" + d.latestRank);
@@ -175,6 +176,10 @@ function displayProfile(d) {
         .text(d.letter2)
         .css("background", getBackground2(d))
         .css("color", getTextColor2(d));
+    $("#infoLetter3")
+        .text(d.letter3)
+        .css("background", getBackground3(d))
+        .css("color", getTextColor3(d));
     $("#infoCompany").text(d.company);
     $("#infoRank").html(getRankInfo(d));
 }
@@ -189,6 +194,10 @@ function getBackground(d) {
 
 function getBackground2(d) {
     return colors[d.letter2];
+}
+
+function getBackground3(d) {
+    return colors[d.letter3];
 }
 
 function resetLines() {
@@ -264,9 +273,10 @@ function plotData(data) {
             return pathGenerator(d.ranking);
         })
         .style("stroke", function(d, i) {
-            let color = getBackground2(d)
+            let color = getBackground3(d)
             if (!color) {
-                color = getBackground(d)
+                color = getBackground2(d)
+                return color;
             }
             return color;
         })
@@ -345,9 +355,9 @@ function updateNotes(d) {
             $("#note" + i).hide();
         } else { // Show rank
             var rank = d.ranking[i].rank;
-            let color = getBackground2(d)
+            let color = getBackground3(d)
             if (!color) {
-                color = getBackground(d)
+                color = getBackground2(d)
             }
             $("#note" + i)
                 .text(rank)
@@ -373,6 +383,13 @@ function getTextColor2(d) {
     return "white";
 }
 
+function getTextColor3(d) {
+    // if (d.letter2 == "C") {
+    //     return "black";
+    // }
+    return "white";
+}
+
 // Return rank or -1 if no rank (eliminated)
 function getRank(n) {
     if (n == "-") {
@@ -388,7 +405,8 @@ function parseLine(row) {
     r.name = row.Name;
     r.company = row.Company;
     r.letter = row["Level Audition"];
-     r.letter2 = row["Re-Evaluation"];
+    r.letter2 = row["Re-Evaluation"];
+    r.letter3 = row["2nd Re-Evaluation"];
     r.specialNote = row.note;
     r.ranking = [];
     episodes.forEach(function(episode, i) {

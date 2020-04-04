@@ -75,6 +75,19 @@ img.arrow {
   font-size: 14px;
   font-weight: bold; }
 
+.letter3 {
+  border-radius: 100%;
+  box-sizing: border-box;
+  width: 28px;
+  height: 28px;
+  padding-top: 4px;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 14px;
+  font-weight: bold; }
+
 .change {
   padding-left: 3px;
   font-weight: bold; }
@@ -116,7 +129,7 @@ path.ranking {
 
 /* Info */
 #profile {
-  margin-top: -20px;
+  margin-top: 0px;
   margin-left: 40px;
   height: 160px; }
   #profile #picWrapper {
@@ -149,12 +162,12 @@ path.ranking {
   position: absolute;
   top: 0;
   right: 50px;
-  width: 500px; }
+  width: 600px; }
   #chart tbody {
     display: block;
     overflow-y: scroll;
     max-height: 540px;
-    width: 500px; }
+    width: 600px; }
 
 #top {
   border-spacing: 0;
@@ -189,7 +202,7 @@ path.ranking {
     #top th:hover {
       color: black; }
   #top #latestRank, #top #letter, #top #rankChange, #top .smWidth {
-    width: 17px; }
+    width: 30px; }
   #top #rankChange, #top .rankWidth {
     width: 50px; }
   #top #name, #top .nameWidth {
