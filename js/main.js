@@ -264,9 +264,6 @@ function plotData(data) {
             if (d.latestRank == 1) {
                 dFirst = d;
             }
-            if (d.specialNote != "") { // Special Line
-                return "sline" + d.latestRank;
-            }
             return "line" + d.latestRank;
         })
         .attr("d", function(d, i) {
