@@ -13,7 +13,7 @@ var padding = 40;
 var middlePadding = (padding * 2) + 100;
 var width = $(window).width() - middlePadding - CHART_WIDTH - 100;
 
-var episodes = [2,4,6,7];
+var episodes = [2,4,6,7,9];
 var totalData;
 var dFirst;
 
@@ -43,7 +43,7 @@ setXAxis();
 d3.csv("trainees.csv", parseLine, function (err, data) {
     totalData = processData(data);
     plotData(data);
-    selectLine(dFirst, "#line1");
+    selectLine(dFirst, "#lineEstherYuShuxin");
     showChart("latestRank", true);
 });
 
@@ -79,7 +79,6 @@ function setXAxis() {
 
 // Add rank info to data
 function processData(data) {
-    console.log(data)
     data.forEach(function(d) {
         d.latestRank = getLatestRank(d);
         d.currentRank = getCurrentRank(d);
@@ -129,7 +128,6 @@ function toggleSort(key) {
 // Update chart
 function showChart(key, asc) {
     var sortedData = sortByKey(totalData, key, asc);
-    console.log(sortedData);
     var top = d3.select("#topBody");
 
     top.selectAll("tr.top").remove();
@@ -148,13 +146,13 @@ function showChart(key, asc) {
             var letter2 = '<div class="letter2" style="background: ' + getBackground2(d) + '; color: ' + getTextColor2(d) + '">' + d.letter2 + '</div>';
             var letter3 = '<div class="letter3" style="background: ' + getBackground3(d) + '; color: ' + getTextColor3(d) + '">' + d.letter3 + '</div>';
             var rank = d.latestRank;
-            if (rank == 1000) {
+            if (rank == "-") {
                 rank = "-";
             }
             return td(rank, "smWidth") + td(d.name, "nameWidth") + td(d.company, "companyWidth") + td(letter, "smWidth") + td(letter2, "smWidth") + td(letter3, "smWidth") + td(displayRankChange(d), "rankWidth");
         })
         .on("mouseover", function(d) {
-            selectLine(d, "#line" + d.latestRank);
+            selectLine(d, "#line" + d.name.replace(/\s/g, ''));
         });
  }
 
@@ -218,7 +216,6 @@ function selectLine(d, lineId) {
     plot.selectAll("path.ranking").style("opacity", NORMAL_OPACITY);
 
     // Move line to front and select
-    console.log(lineId)
     var line = d3.select(lineId);
     line.moveToFront();
     line.style("opacity", SELECT_OPACITY).style("stroke-width", SELECT_WIDTH);
@@ -264,7 +261,7 @@ function plotData(data) {
             if (d.latestRank == 1) {
                 dFirst = d;
             }
-            return "line" + d.latestRank;
+            return "line" + d.name.replace(/\s/g, '');
         })
         .attr("d", function(d, i) {
             return pathGenerator(d.ranking);
@@ -294,9 +291,13 @@ function plotData(data) {
 
 // Returns the latest rank for every contestant, 1000 for those never ranked
 function getLatestRank(d) {
-    var ranking = d.ranking[d.ranking.length - 1];
+    var ranking = d.ranking[d.ranking.length - 1]
     if (ranking == undefined) {
         return 1000;
+    }
+    if (d.ranking.length < episodes.length) {
+        console.log(d)
+        return "-"
     }
     return ranking.rank;
 }
@@ -398,7 +399,6 @@ function getRank(n) {
 // Parse line of csv to return a new row with episode, x, rank, and rankings[]
 function parseLine(row) {
     var r = {};
-    console.log(row)
     r.name = row.Name;
     r.company = row.Company;
     r.letter = row["Level Audition"];
