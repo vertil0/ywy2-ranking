@@ -13,7 +13,7 @@ var padding = 40;
 var middlePadding = (padding * 2) + 100;
 var width = $(window).width() - middlePadding - CHART_WIDTH - 100;
 
-var episodes = [2,4,6,7,9,12,16];
+var episodes = [2,4,6,9,12,16,20];
 var totalData;
 var dFirst;
 
@@ -43,7 +43,7 @@ setXAxis();
 d3.csv("trainees.csv", parseLine, function (err, data) {
     totalData = processData(data);
     plotData(data);
-    selectLine(dFirst, "#lineEstherYuShuxin");
+    selectLine(dFirst, "#lineXINLiuYuxin");
     showChart("latestRank", true);
 });
 
